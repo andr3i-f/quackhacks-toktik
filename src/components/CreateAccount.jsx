@@ -1,48 +1,53 @@
 import {
-  Box,
-  Text,
-  Heading,
-  FormControl,
-  FormLabel,
-  Input,
-  Button,
-} from "@chakra-ui/react";
-import { useState, useEffect } from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { CreateUser } from "../api/CreateUser";
-import axios from "axios";
-import { BACKEND } from "../Config"; // Your backend URL config
-import NavBar from "./NavBar";
+    Box,
+    Text,
+    Heading,
+    FormControl,
+    FormLabel,
+    Input,
+    Button,
+  } from "@chakra-ui/react";
+  import { useState, useEffect } from "react";
+  import { useForm, SubmitHandler } from "react-hook-form";
+  import { createUser } from "../api/createUser";
+  import axios from "axios";
+  import { BACKEND } from "../Config"; // Your backend URL config
+  import NavBar from "./NavBar";
 
-export function CreateAccount() {
-  const [isSubmitted, setSubmitted] = useState(false);
-  const backendUrl = `${BACKEND}/users`;
-
-  const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-
-  const getData = () => {
-    axios.get(backendUrl).then((response) => {
-      console.log(response);
-    });
-  };
-
-  const onSubmit = () => {
-    setSubmitted((prev) => !prev); // Toggle the state
-    getData();
-  };
-
-  useEffect(() => {
-    console.log(isSubmitted); // Log the updated state value
-    console.log(email);
-    console.log(username);
-    console.log(password);
-  }, [isSubmitted]);
-
-  return (
-    <>
-      <NavBar />
+  export function CreateAccount() {
+    const [isSubmitted, setSubmitted] = useState(false);
+    const backendUrl = `${BACKEND}/users`;
+  
+    const [email, setEmail] = useState("");
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+  
+    const getData = () => {
+      axios.get(backendUrl).then((response) => {
+        console.log(response);
+      });
+    };
+  
+    const onSubmit = async (event) => {
+      event.preventDefault();
+      if (username && email && password) {
+        const data = await createUser(username, email, password)
+        setEmail("")
+        setUsername("")
+        setPassword("")
+      }
+    };
+  
+    // useEffect(() => {
+    //   //console.log(isSubmitted); // Log the updated state value
+    //   //console.log(email);
+    //   //console.log(username);
+    //   //console.log(password);
+    // }, [isSubmitted]);
+  
+    return (
+      <>
+      <NavBar/>
       <Box
         display="flex"
         justifyContent="center"
@@ -50,11 +55,6 @@ export function CreateAccount() {
         height="100vh"
         bg="gray.100"
       >
-        {isSubmitted ? (
-          <CreateUser name={username} email={email} passwd={password} />
-        ) : (
-          <></>
-        )}
         <Box>
           <Heading>Create Account for TokTik</Heading>
           <form onSubmit={onSubmit}>
@@ -87,8 +87,8 @@ export function CreateAccount() {
             <Button colorScheme="blue" width="100%" type="submit">
               Create Account
             </Button>
-            <Button onClick={getData}>Get data</Button>
           </form>
+          <Button onClick={getData}>Get data</Button>
         </Box>
       </Box>
     </>

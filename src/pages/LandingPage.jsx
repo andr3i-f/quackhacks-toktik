@@ -103,37 +103,6 @@ export function LandingPage() {
         </Flex>
       </Box>
 
-      {/* Founders */}
-      <Box py="16" bg="gray.50">
-        <Container maxW="container.lg">
-          <Heading textAlign="center" mb="8">
-            Your Captors
-          </Heading>
-          <Grid
-            templateColumns={{ base: "repeat(2, 1fr)", md: "repeat(4, 1fr)" }}
-            gap="6"
-          >
-            {captors.map((item, index) => (
-              <GridItem key={index} textAlign="center">
-                <VStack align={'center'}>
-                  <Image
-                    height={"100px"}
-                    width={"100px"}
-                    borderRadius="40"
-                    src={item.image_link}
-                    size="xl"
-                  />
-                  <Text fontWeight="bold">{item.name}</Text>
-                  <Text fontSize="sm" color="gray.600">
-                    @{item.username}
-                  </Text>
-                </VStack>
-              </GridItem>
-            ))}
-          </Grid>
-        </Container>
-      </Box>
-
       {/* Trending Content stuff */}
       <Box py="16" bg="white">
         <Container maxW="container.lg">
@@ -161,6 +130,37 @@ export function LandingPage() {
                 <Text fontSize="sm" color="gray.600">
                   Some description of the trending content.
                 </Text>
+              </GridItem>
+            ))}
+          </Grid>
+        </Container>
+      </Box>
+
+            {/* Founders */}
+            <Box py="16" bg="gray.50">
+        <Container maxW="container.lg">
+          <Heading textAlign="center" mb="8">
+            Your Captors
+          </Heading>
+          <Grid
+            templateColumns={{ base: "repeat(2, 1fr)", md: "repeat(4, 1fr)" }}
+            gap="6"
+          >
+            {captors.map((item, index) => (
+              <GridItem key={index} textAlign="center">
+                <VStack align={'center'}>
+                  <Image
+                    height={"100px"}
+                    width={"100px"}
+                    borderRadius="40"
+                    src={item.image_link}
+                    size="xl"
+                  />
+                  <Text fontWeight="bold">{item.name}</Text>
+                  <Text fontSize="sm" color="gray.600">
+                    @{item.username}
+                  </Text>
+                </VStack>
               </GridItem>
             ))}
           </Grid>
