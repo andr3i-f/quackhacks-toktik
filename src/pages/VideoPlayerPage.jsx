@@ -1,4 +1,3 @@
-import GetGifs from "../components/GetGifs";
 import NavBar from "../components/NavBar";
 import VideoPlayer from "../components/VideoPlayer";
 import {
@@ -14,7 +13,7 @@ export const VideoPlayerPage = () => {
   return (
     <Box>
       <NavBar />
-      <GetGifs />
+      <VideoPlayer />
     </Box>
   );
 };
