@@ -21,10 +21,12 @@ function NavBar() {
       />
 
       <Flex gap={2}>
+        <Link href="/login" passHref legacyBehavior>
+          <Button as="a">Login</Button>
+        </Link>{" "}
         <Link href="/upload" passHref legacyBehavior>
           <Button as="a">Upload Gif</Button>
         </Link>
-        <Button>Useless #2</Button>
         <Button>Useless #3</Button>
       </Flex>
     </Flex>

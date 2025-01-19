@@ -43,7 +43,7 @@ export function LandingPage() {
         <Container>
           <Heading marginTop="10%">Create an Account</Heading>
           <Text>Allow us to Steal your Data</Text>
-          <Link href="/login" passHref legacyBehavior>
+          <Link href="/account" passHref legacyBehavior>
             <Button as="a">Create Account</Button>
           </Link>
         </Container>
