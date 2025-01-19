@@ -12,7 +12,8 @@ import {
   import { createUser } from "../api/createUser";
   import axios from "axios";
   import { BACKEND } from "../Config"; // Your backend URL config
-  
+  import NavBar from "./NavBar";
+
   export function CreateAccount() {
     const [isSubmitted, setSubmitted] = useState(false);
     const backendUrl = `${BACKEND}/users`;
@@ -45,6 +46,8 @@ import {
     // }, [isSubmitted]);
   
     return (
+      <>
+      <NavBar/>
       <Box
         display="flex"
         justifyContent="center"
