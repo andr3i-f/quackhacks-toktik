@@ -30,8 +30,8 @@ function NavBar() {
       bg="gray.100"
       gap={2}
     >
-      <Flex alignItems="center" gap={2}>
-        <Link href="/home">
+      <Link href="/home">
+        <Flex alignItems="center" gap={2}>
           <IconButton
             aria-label="TokTik Icon"
             icon={
@@ -44,11 +44,11 @@ function NavBar() {
             fontSize="48px"
             variant="ghost"
           />
-        </Link>
-        <Text textStyle="7x1" fontWeight="bold">
-          TokTik
-        </Text>
-      </Flex>
+          <Text textStyle="7x1" fontWeight="bold">
+            TokTik
+          </Text>
+        </Flex>
+      </Link>
 
       <Flex gap={2} align="center">
         <Link href="/upload" passHref legacyBehavior>
