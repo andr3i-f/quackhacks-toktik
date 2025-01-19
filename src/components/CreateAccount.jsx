@@ -55,7 +55,13 @@ import {
         height="100vh"
         bg="gray.100"
       >
-        <Box>
+        <Box
+        bg="white"
+        p={8}
+        borderRadius="lg"
+        boxShadow="lg"
+        maxWidth="400px"
+        width="100%">
           <Heading>Create Account for TokTik</Heading>
           <form onSubmit={onSubmit}>
             <FormControl mb={4}>
@@ -88,7 +94,7 @@ import {
               Create Account
             </Button>
           </form>
-          <Button onClick={getData}>Get data</Button>
+          <Button marginTop="2%" onClick={getData}>Get data</Button>
         </Box>
       </Box>
     </>
