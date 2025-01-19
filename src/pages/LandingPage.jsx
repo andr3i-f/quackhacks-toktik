@@ -19,7 +19,6 @@ import mujtaba from "../images/mujtaba.png";
 import andrei from "../images/andrei.jpg";
 import musa from "../images/musa.png";
 import NavBar from "../components/NavBar";
-import VideoPlayer from "../components/VideoPlayer";
 
 export function LandingPage() {
   const captors = [
@@ -90,16 +89,18 @@ export function LandingPage() {
             <Text color="gray.300" fontSize={{ base: "md", md: "xl" }}>
               Enjoy Hours of Wasted Time
             </Text>
-            <Button
-              marginTop="6"
-              size="lg"
-              bg="teal.400"
-              color="white"
-              _hover={{ bg: "teal.500" }}
-              shadow="md"
-            >
-              Start Wasting Your Time
-            </Button>
+            <Link href="/player">
+              <Button
+                marginTop="6"
+                size="lg"
+                bg="teal.400"
+                color="white"
+                _hover={{ bg: "teal.500" }}
+                shadow="md"
+              >
+                Start Wasting Your Time
+              </Button>
+            </Link>
           </Container>
         </Flex>
       </Box>
