@@ -63,6 +63,7 @@ export function VideoPlayer() {
                 src={fileData.gifData}
                 alt="GIF"
                 objectFit="fit"
+                rounded="3xl"
                 w="100%"
                 h="100%"
               />
