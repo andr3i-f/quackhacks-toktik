@@ -49,7 +49,7 @@ export function CreateGif() {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
   return (
-    <Box bg="gray.100" minH="100vh" py="5" px="4">
+    <Box bg="gray.100" minH="100vh">
       <NavBar />
       <Box py="50" />
 
@@ -155,9 +155,9 @@ export function CreateGif() {
       )} */}
 
       {/* Footer Section */}
-      <Box bg="gray.400" py="6" mt="12">
+      <Box bg="gray.400" h="10vh" w="100vw" marginTop="4.5%">
         <Container maxW="container.md" textAlign="center" color="white">
-          <Text fontSize="sm">
+          <Text fontSize="sm" paddingTop="3.5%">
             By uploading, you agree to sell your soul to us.
           </Text>
         </Container>
