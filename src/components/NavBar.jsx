@@ -28,7 +28,7 @@ function NavBar() {
       </Link>
 
       <Flex gap={2}>
-        <Link href="/login" passhref legacyBehavior>
+        <Link href="/upload" passhref legacyBehavior>
           <Button as="a">Upload Gif</Button>
         </Link>{" "}
         <Link href="/account" passhref legacyBehavior>
