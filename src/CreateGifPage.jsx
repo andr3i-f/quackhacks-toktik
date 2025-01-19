@@ -15,25 +15,23 @@ import { CreateUser } from "./api/CreateUser";
 import axios from "axios";
 import { BACKEND } from "./Config"; // Your backend URL config
 import { useDropzone } from "react-dropzone";
+import { UploadGif } from "./api/UploadGif";
 
 export function CreateGifPage() {
-    const [ fileName, setFileName ] = useState("");
     const [ file, setFile ] = useState(null);
-
-    console.log(file.path)
+    const [ uploadGif, setUploadGif ] = useState(false);
 
     const uploadDataOnSubmit = () => {
-
+        console.log(URL.createObjectURL(file))
+        setUploadGif(true);
     }
 
   const onDrop = useCallback((acceptedFiles) => {
-    console.log(acceptedFiles)
-    setFileName(acceptedFiles[0].name)
     setFile(acceptedFiles[0])
   }, []);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
-
+  console.log(uploadGif)
   return (
     <Box
       display="flex"
@@ -53,9 +51,10 @@ export function CreateGifPage() {
               )}
             </div>
         </Box>
-        {fileName && <Text>{fileName}</Text>}
-        {<Button isDisabled={!fileName} colorScheme="blue" onSubmit={uploadDataOnSubmit}>Upload</Button>}
+        {file && <Text>{file.name}</Text>}
+        {<Button isDisabled={!file} colorScheme="blue" onClick={uploadDataOnSubmit}>Upload</Button>}
         {file && <Image src={URL.createObjectURL(file)} alt={"Gif"}></Image>}
+              {uploadGif && <UploadGif gif={file} name={file.name} setUploadGif={setUploadGif} uploadGif={uploadGif}/>}
       </VStack>
     </Box>
   );
