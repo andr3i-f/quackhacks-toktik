@@ -1,12 +1,13 @@
 import {
-  Text,
   Box,
-  Image,
   Center,
-  IconButton,
-  VStack,
   Flex,
+  VStack,
+  IconButton,
   Heading,
+  Image,
+  Text,
+  Skeleton,
 } from "@chakra-ui/react";
 import { ArrowDownIcon, ArrowUpIcon } from "@chakra-ui/icons";
 import { RiThumbUpFill, RiThumbDownFill } from "react-icons/ri";
@@ -26,9 +27,15 @@ async function getGifsFunc(index, setData) {
 export function VideoPlayer() {
   const [index, setIndex] = useState(0);
   const [fileData, setData] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    getGifsFunc(index, setData);
+    // Simulate loading effect when index changes
+    setIsLoading(true);
+    getGifsFunc(index, (data) => {
+      setData(data);
+      setTimeout(() => setIsLoading(false), 500); // Add a delay for smooth animation
+    });
   }, [index]);
 
   return (
@@ -41,8 +48,7 @@ export function VideoPlayer() {
       {/* Video Content */}
       <Center h="100%">
         <Flex align="center" justify="center" w="80%" maxW="500px" gap="5">
-          {/* Video Box */}
-
+          {/* Skeleton for Transition */}
           <Box
             w="80%"
             maxW="350px"
@@ -52,26 +58,35 @@ export function VideoPlayer() {
             rounded="3xl"
             bg="black"
           >
-            {fileData && (
-              <Heading color={"white"} textAlign={"center"}>
-                {fileData.title}
-              </Heading>
-            )}
-
-            {fileData ? (
-              <Image
-                src={fileData.gifData}
-                alt="GIF"
-                objectFit="fit"
-                rounded="3xl"
-                w="100%"
-                h="100%"
-              />
-            ) : (
-              <Text color="white" fontSize="lg" textAlign="center">
-                Loading...
-              </Text>
-            )}
+            <Skeleton
+              isLoaded={!isLoading}
+              startColor="gray.700"
+              endColor="gray.900"
+              fadeDuration={0.3}
+              h="100%"
+              w="100%"
+              rounded="3xl"
+            >
+              {fileData && (
+                <Heading color={"white"} textAlign={"center"} mb={2}>
+                  {fileData.title}
+                </Heading>
+              )}
+              {fileData ? (
+                <Image
+                  src={fileData.gifData}
+                  alt="GIF"
+                  objectFit="fit"
+                  rounded="3xl"
+                  w="100%"
+                  h="100%"
+                />
+              ) : (
+                <Text color="white" fontSize="lg" textAlign="center">
+                  Loading...
+                </Text>
+              )}
+            </Skeleton>
           </Box>
 
           {/* Action Buttons */}
