@@ -9,6 +9,7 @@ import {
   Icon,
   Progress,
   HStack,
+  Input,
 } from "@chakra-ui/react";
 import { useState, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
@@ -19,10 +20,14 @@ import NavBar from "./NavBar";
 export function CreateGif() {
   const [rawFile, setRawFile] = useState(null);
   const [actualFile, setActualFile] = useState(null);
+  const [title, setTitle] = useState("")
 
   const uploadDataOnSubmit = async () => {
     console.log('calling api')
-    await uploadGif(rawFile, actualFile.name)
+    console.log(title)
+    if (title) {
+      await uploadGif(rawFile, actualFile.name, title)
+    }
   };
 
   const undoUpload = () => {
@@ -118,7 +123,7 @@ export function CreateGif() {
               />
             </Box>
           )}
-
+          <Input isDisabled={!rawFile} placeholder={"Enter title for gif . . ."} value={title} onChange={(e) => setTitle(e.target.value) }/>
           {/* Upload Button */}
           <Button
             colorScheme="teal"
