@@ -6,6 +6,7 @@ import {
   IconButton,
   VStack,
   Flex,
+  Heading,
 } from "@chakra-ui/react";
 import { ArrowDownIcon, ArrowUpIcon } from "@chakra-ui/icons";
 import { RiThumbUpFill, RiThumbDownFill } from "react-icons/ri";
@@ -41,15 +42,22 @@ export function VideoPlayer() {
       <Center h="100%">
         <Flex align="center" justify="center" w="80%" maxW="500px" gap="5">
           {/* Video Box */}
+
           <Box
             w="80%"
             maxW="350px"
             aspectRatio="9/16"
             position="relative"
             overflow="hidden"
-            rounded="2xl"
+            rounded="3xl"
             bg="black"
           >
+            {fileData && (
+              <Heading color={"white"} textAlign={"center"}>
+                {fileData.title}
+              </Heading>
+            )}
+
             {fileData ? (
               <Image
                 src={fileData.gifData}
