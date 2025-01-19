@@ -7,7 +7,7 @@ function NavBar() {
       as="header"
       w="100%"
       px={4}
-      py={2}
+      py={6}
       alignItems="center"
       justifyContent="space-between"
       bg="gray.100"
