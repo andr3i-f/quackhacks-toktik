@@ -16,16 +16,18 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route index element={<LandingPage />} />
-          <Route path='/home' element={<LandingPage />} />
-          <Route path='/login' element={<LoginPage />} />
-          <Route path='/account' element={<CreateAccountPage />} />
-          <Route path='/upload' element={<CreateGifPage />} />
-          <Route path='/player' element={<VideoPlayerPage />} />
-          <Route path='*' element={<NoPage />} />
+          <Route path="/home" element={<LandingPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/account" element={<CreateAccountPage />} />
+          <Route path="/upload" element={<CreateGifPage />} />
+          <Route path="/player" element={<VideoPlayerPage />} />
+          <Route path="/login/player" element={<VideoPlayerPage />} />
+
+          <Route path="*" element={<NoPage />} />
         </Routes>
       </BrowserRouter>
     </>
-  )
+  );
 }
 
 export default App;
