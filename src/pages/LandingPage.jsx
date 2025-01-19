@@ -19,8 +19,34 @@ import mujtaba from "../images/mujtaba.png";
 import andrei from "../images/andrei.jpg";
 import musa from "../images/musa.png";
 import NavBar from "../components/NavBar";
+import { useState, useEffect } from "react";
+import { getMostPopular } from "../api/getMostPopular"; // Ensure this function is correctly set up
 
 export function LandingPage() {
+  const [popularGIFs, setPopularGIFs] = useState([]);
+
+  const listPopulator = async () => {
+    try {
+      // Fetch the top 6 most popular GIFs by calling the API for indices 0 to 5
+      const fetchedGIFs = await Promise.all(
+        Array.from({ length: 6 }).map(async (_, index) => {
+          const gifData = await getMostPopular(index); // Passing index to fetch specific GIF
+          return gifData;
+        })
+      );
+
+      // Set the fetched GIFs to state
+      setPopularGIFs(fetchedGIFs);
+      console.log(fetchedGIFs)
+    } catch (error) {
+      console.error("Error fetching popular GIFs:", error);
+    }
+  };
+
+  useEffect(() => {
+    listPopulator();
+  }, []); // Empty dependency array ensures this runs once on component mount
+
   const captors = [
     {
       idx: 0,
@@ -105,41 +131,47 @@ export function LandingPage() {
         </Flex>
       </Box>
 
-      {/* Trending Content stuff */}
+      {/* Trending Content Section */}
       <Box py="16" bg="white">
         <Container maxW="container.lg">
           <Heading textAlign="center" mb="8">
             Trending Now
           </Heading>
           <Grid templateColumns={{ base: "1fr", md: "repeat(3, 1fr)" }} gap="6">
-            {Array.from({ length: 6 }).map((_, index) => (
-              <GridItem
-                key={index}
-                bg="gray.100"
-                p="6"
-                borderRadius="md"
-                shadow="sm"
-                _hover={{
-                  shadow: "md",
-                  transform: "scale(1.02)",
-                  transition: "all 0.2s",
-                }}
-              >
-                <Box h="150px" bg="gray.300" mb="4" borderRadius="md" />
-                <Text fontWeight="bold" mb="2">
-                  Post Title {index + 1}
-                </Text>
-                <Text fontSize="sm" color="gray.600">
-                  Some description of the trending content.
-                </Text>
-              </GridItem>
-            ))}
+            {popularGIFs.length > 0 ? (
+              popularGIFs.map((gif, index) => (
+                <GridItem
+                  key={gif.name}
+                  bg="gray.100"
+                  p="6"
+                  borderRadius="md"
+                  shadow="sm"
+                  _hover={{
+                    shadow: "md",
+                    transform: "scale(1.02)",
+                    transition: "all 0.2s",
+                  }}
+                >
+                  <Box h="150px" bg="gray.300" mb="4" borderRadius="md">
+                    <Image src={gif.gifData} alt={`GIF ${index + 1}`} objectFit="cover" w="100%" h="100%" borderRadius="md" />
+                  </Box>
+                  <Text fontWeight="bold" mb="2">
+                    {gif.name}
+                  </Text>
+                  <Text fontSize="sm" color="gray.600">
+                    {gif.title || "Some description of the trending content."}
+                  </Text>
+                </GridItem>
+              ))
+            ) : (
+              <Text>Loading trending GIFs...</Text>
+            )}
           </Grid>
         </Container>
       </Box>
 
-            {/* Founders */}
-            <Box py="16" bg="gray.50">
+      {/* Founders Section */}
+      <Box py="16" bg="gray.50">
         <Container maxW="container.lg">
           <Heading textAlign="center" mb="8">
             Your Captors
@@ -150,7 +182,7 @@ export function LandingPage() {
           >
             {captors.map((item, index) => (
               <GridItem key={index} textAlign="center">
-                <VStack align={'center'}>
+                <VStack align={"center"}>
                   <Image
                     height={"100px"}
                     width={"100px"}
@@ -166,36 +198,6 @@ export function LandingPage() {
               </GridItem>
             ))}
           </Grid>
-        </Container>
-      </Box>
-
-      <Box py="16" bg="teal.400" color="white">
-        <Container maxW="container.md" textAlign="center">
-          <Heading mb="8">What Our Prisoners Say</Heading>
-          <VStack spacing="6">
-            {Array.from({ length: 1 }).map((_, index) => (
-              <Box
-                key={index}
-                bg="teal.500"
-                p="6"
-                borderRadius="md"
-                shadow="md"
-              >
-                <Text fontStyle="italic" mb="4">
-                  "Please end my suffereing... yippee!"
-                </Text>
-                <HStack justify="center">
-                  <Avatar />
-                  <Box>
-                    <Text fontWeight="bold">Abdullah Havaldar</Text>
-                    <Text fontSize="sm" color="teal.200">
-                      @doolyboi{index}
-                    </Text>
-                  </Box>
-                </HStack>
-              </Box>
-            ))}
-          </VStack>
         </Container>
       </Box>
 
