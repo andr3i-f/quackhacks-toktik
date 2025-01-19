@@ -31,7 +31,9 @@ import {
       event.preventDefault();
       if (username && email && password) {
         const data = await createUser(username, email, password)
-        console.log(data)
+        setEmail("")
+        setUsername("")
+        setPassword("")
       }
     };
   
