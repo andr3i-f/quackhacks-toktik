@@ -1,4 +1,5 @@
-import { Text, Button, IconButton, Flex, Link } from "@chakra-ui/react";
+import { Image, Button, IconButton, Flex, Link } from "@chakra-ui/react";
+import { AiFillTikTok } from "react-icons/ai";
 
 function NavBar() {
   return (
@@ -11,23 +12,31 @@ function NavBar() {
       justifyContent="space-between"
       bg="gray.100"
     >
-      <IconButton
-        aria-label="TokTik Icon"
-        icon={
-          <Text>
-            <Link href="/home">TokTik</Link>
-          </Text>
-        }
-      />
+      <Link href="/home">
+        <IconButton
+          aria-label="TokTik Icon"
+          icon={
+            <AiFillTikTok
+              style={{
+                transform: "scaleX(-1)",
+              }}
+            />
+          }
+          fontSize="48px"
+          variant="ghost" 
+        />
+      </Link>
 
       <Flex gap={2}>
         <Link href="/login" passhref legacyBehavior>
-          <Button as="a">Login</Button>
-        </Link>{" "}
-        <Link href="/upload" passhref legacyBehavior>
           <Button as="a">Upload Gif</Button>
+        </Link>{" "}
+        <Link href="/account" passhref legacyBehavior>
+          <Button as="a">Sign Up</Button>
         </Link>
-        <Button>Useless #3</Button>
+        <Link href="/login" passhref legacyBehavior>
+          <Button as="a">Log In</Button>
+        </Link>
       </Flex>
     </Flex>
   );
