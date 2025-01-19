@@ -162,3 +162,4 @@ function CommentButton(){
     );
 }
 
+export default VideoPlayer;
