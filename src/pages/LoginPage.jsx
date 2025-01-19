@@ -1,8 +1,26 @@
-import {Text} from '@chakra-ui/react';
-import { Box, Button, FormControl, FormLabel, Input, Heading} from "@chakra-ui/react";
-import NavBar from '../components/NavBar';
+import { Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  FormControl,
+  FormLabel,
+  Input,
+  Heading,
+} from "@chakra-ui/react";
+import NavBar from "../components/NavBar";
+import { loginUser } from "../api/loginUser";
+import { useState } from "react";
 
 export function LoginPage() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const onSubmit = async (event) => {
+    event.preventDefault();
+    if (email && password) {
+      await loginUser(email, password);
+    }
+  };
   return (
     <>
       <NavBar />
@@ -24,14 +42,24 @@ export function LoginPage() {
           <Heading as="h2" size="lg" mb={6} textAlign="center">
             Login
           </Heading>
-          <form>
+          <form onSubmit={onSubmit}>
             <FormControl mb={4}>
               <FormLabel>Email</FormLabel>
-              <Input type="email" placeholder="Enter your email" />
+              <Input
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                type="email"
+                placeholder="Enter your email"
+              />
             </FormControl>
             <FormControl mb={4}>
               <FormLabel>Password</FormLabel>
-              <Input type="password" placeholder="Enter your password" />
+              <Input
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                type="password"
+                placeholder="Enter your password"
+              />
             </FormControl>
             <Button colorScheme="blue" width="100%" type="submit">
               Login
@@ -44,4 +72,3 @@ export function LoginPage() {
 }
 
 export default LoginPage;
-
