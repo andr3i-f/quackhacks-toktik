@@ -115,7 +115,8 @@ export function VideoPlayer() {
             />
             <DislikeButton
               initialDislikes={dislikes}
-              onDislike={() => likedislikeHandler(false)}
+              setInitialDislikes={setDislikes}
+              name={fileData?.name}
             />
           </VStack>
         </Flex>
@@ -167,6 +168,7 @@ function LikeButton({ initialLikes, setInitialLikes, name }) {
     handleLikeDislike(name, true)
   }
 
+
   return (
     <VStack spacing={1} align="center">
       <IconButton
@@ -185,13 +187,13 @@ function LikeButton({ initialLikes, setInitialLikes, name }) {
 }
 
 // Dislike Button
-function DislikeButton({ initialDislikes, onDislike }) {
-  const [dislikes, setDislikes] = useState(initialDislikes || 0);
+function DislikeButton({ initialDislikes, setInitialDislikes, name }) {
 
-  const handleDislike = () => {
-    setDislikes(dislikes + 1);
-    onDislike(); // Call the parent function to update the dislikes in the backend
-  };
+  const onClickDislike = () => {
+    setInitialDislikes(initialDislikes + 1)
+    console.log(name)
+    handleLikeDislike(name, false)
+  }
 
   return (
     <VStack spacing={1} align="center">
@@ -201,10 +203,10 @@ function DislikeButton({ initialDislikes, onDislike }) {
         size="lg"
         colorScheme="white"
         variant="solid"
-        onClick={handleDislike} // Call handleDislike on click
+        onClick={onClickDislike} // Call handleDislike on click
       />
       <Text color="white" fontSize="sm">
-        {dislikes}
+        {initialDislikes}
       </Text>
     </VStack>
   );
