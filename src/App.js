@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LoginPage } from "./pages/LoginPage";
 import { LandingPage } from "./pages/LandingPage";
 import { NoPage } from "./pages/NoPage";
+import { CreateGifPage } from "./pages/CreateGifPage";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route index element={<LandingPage />} />
           <Route path='/home' element={<LandingPage />} />
           <Route path='/login' element={<LoginPage />} />
+          <Route path='/upload' element={<CreateGifPage />} />
           <Route path='*' element={<NoPage />} />
         </Routes>
       </BrowserRouter>

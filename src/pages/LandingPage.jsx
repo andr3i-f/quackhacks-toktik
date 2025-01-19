@@ -5,7 +5,7 @@ import {
   Box,
   Button,
   Link,
-  Flex
+  Flex,
 } from "@chakra-ui/react";
 import toktikImage from "../images/toktik.jpg"; // Adjust the path
 import NavBar from "../components/NavBar";
@@ -43,9 +43,9 @@ export function LandingPage() {
         <Container>
           <Heading marginTop="10%">Create an Account</Heading>
           <Text>Allow us to Steal your Data</Text>
-          <Button marginTop="5%" marginBottom="10%">
-            <Link href="/login">Womp Womp</Link>
-          </Button>
+          <Link href="/login" passHref legacyBehavior>
+            <Button as="a">Create Account</Button>
+          </Link>
         </Container>
       </Flex>
 
