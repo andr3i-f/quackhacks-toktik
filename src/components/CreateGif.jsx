@@ -8,29 +8,37 @@ import {
   Image,
   Icon,
   Progress,
+  HStack,
 } from "@chakra-ui/react";
 import { useState, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
-import { UploadGif } from "../api/UploadGif";
 import { FaCloudUploadAlt } from "react-icons/fa";
+import { uploadGif } from "../api/uploadGif";
 import NavBar from "./NavBar";
 
 export function CreateGif() {
-  const [file, setFile] = useState(null);
-  const [uploadGif, setUploadGif] = useState(false);
+  const [rawFile, setRawFile] = useState(null);
+  const [actualFile, setActualFile] = useState(null);
 
-  const uploadDataOnSubmit = () => {
-    console.log(URL.createObjectURL(file));
-    setUploadGif(true);
+  const uploadDataOnSubmit = async () => {
+    console.log('calling api')
+    await uploadGif(rawFile, actualFile.name)
   };
 
   const undoUpload = () => {
-    setFile(null); // Clear the file
-    setUploadGif(false); // Reset upload state
+    setActualFile(null); 
+    setRawFile(null);// Clear the file
   };
 
   const onDrop = useCallback((acceptedFiles) => {
-    setFile(acceptedFiles[0]);
+    const file = acceptedFiles[0]
+    setActualFile(file)
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      const rawData = reader.result;
+      setRawFile(rawData)
+    };
+    reader.readAsDataURL(file)    
   }, []);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
@@ -84,9 +92,11 @@ export function CreateGif() {
           </Box>
 
           {/* Display File Info */}
-          {file && (
+          {rawFile && (
             <Box textAlign="center" position="relative">
               {/* Undo Button positioned on the top-right corner */}
+              <HStack>
+              <Text fontWeight="bold">{actualFile.name}</Text>
               <Button
                 position="absolute"
                 top="0"
@@ -98,9 +108,9 @@ export function CreateGif() {
               >
                 X
               </Button>
-              <Text fontWeight="bold">{file.name}</Text>
+              </HStack>
               <Image
-                src={URL.createObjectURL(file)}
+                src={rawFile}
                 alt="Uploaded GIF"
                 borderRadius="md"
                 maxH="200px"
@@ -112,26 +122,17 @@ export function CreateGif() {
           {/* Upload Button */}
           <Button
             colorScheme="teal"
-            isDisabled={!file}
+            isDisabled={!rawFile}
             onClick={uploadDataOnSubmit}
             width="full"
           >
             Upload GIF
           </Button>
-
-          {uploadGif && (
-            <UploadGif
-              gif={file}
-              name={file.name}
-              setUploadGif={setUploadGif}
-              uploadGif={uploadGif}
-            />
-          )}
         </VStack>
       </Container>
 
-      {/* Progress Section */}
-      {uploadGif && (
+      {/* Progress Section
+      {(
         <Container maxW="container.sm" mt="8">
           <Heading fontSize="lg" mb="4" color="gray.600" textAlign="center">
             Upload Progress
@@ -146,7 +147,7 @@ export function CreateGif() {
             Uploading... 50% Complete
           </Text>
         </Container>
-      )}
+      )} */}
 
       {/* Footer Section */}
       <Box bg="gray.400" py="6" mt="12">

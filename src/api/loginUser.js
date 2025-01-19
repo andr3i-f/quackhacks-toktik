@@ -11,6 +11,6 @@ export async function loginUser(email, password)
     headers: {
       "Content-Type": "application/json"
     }
-  })
+  });
   return data;
 }
