@@ -32,7 +32,10 @@ async function getGifsFunc(index, setData) {
 export function VideoPlayer() {
   const [index, setIndex] = useState(0);
   const [fileData, setData] = useState(null);
+<<<<<<< HEAD
   const [isLoading, setIsLoading] = useState(false);
+=======
+>>>>>>> b9edb9632005c18e40db972b4b7f7b94542482b2
   const [likes, setLikes] = useState(0);
   const [dislikes, setDislikes] = useState(0);
 
@@ -79,7 +82,11 @@ export function VideoPlayer() {
       {/* Video Content */}
       <Center h="100%">
         <Flex align="center" justify="center" w="80%" maxW="500px" gap="5">
+<<<<<<< HEAD
           {/* Skeleton for Transition */}
+=======
+          {/* Video Box */}
+>>>>>>> b9edb9632005c18e40db972b4b7f7b94542482b2
           <Box
             w="80%"
             maxW="350px"
@@ -89,6 +96,7 @@ export function VideoPlayer() {
             rounded="3xl"
             bg="black"
           >
+<<<<<<< HEAD
             <Skeleton
               isLoaded={!isLoading}
               startColor="gray.700"
@@ -118,6 +126,28 @@ export function VideoPlayer() {
                 </Text>
               )}
             </Skeleton>
+=======
+            {fileData && (
+              <Heading color={"white"} textAlign={"center"}>
+                {fileData.title}
+              </Heading>
+            )}
+
+            {fileData ? (
+              <Image
+                src={fileData.gifData}
+                alt="GIF"
+                objectFit="cover"
+                rounded="3xl"
+                w="100%"
+                h="100%"
+              />
+            ) : (
+              <Text color="white" fontSize="lg" textAlign="center">
+                Loading...
+              </Text>
+            )}
+>>>>>>> b9edb9632005c18e40db972b4b7f7b94542482b2
           </Box>
 
           {/* Action Buttons */}
