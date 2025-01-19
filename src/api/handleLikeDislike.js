@@ -9,7 +9,7 @@ export async function handleLikeDislike(name, isLike) {
 
   const { data } = await axios.post(
     backendUrl,
-    { params: { name: name, isLike: isLike } },
+    { name: name, isLike: isLike },
     {
       headers: {
         "Content-Type": "application/json",

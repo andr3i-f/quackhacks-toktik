@@ -110,7 +110,8 @@ export function VideoPlayer() {
             <ScrollDown setIndex={setIndex} index={index} />
             <LikeButton
               initialLikes={likes}
-              onLike={() => likedislikeHandler(true)}
+              setInitialLikes={setLikes}
+              name={fileData?.name}
             />
             <DislikeButton
               initialDislikes={dislikes}
@@ -158,12 +159,13 @@ function ScrollDown({ setIndex, index }) {
 }
 
 // Like Button
-function LikeButton({ initialLikes, onLike }) {
-  const [likes, setLikes] = useState(initialLikes || 0);
+function LikeButton({ initialLikes, setInitialLikes, name }) {
 
-  const handleLike = () => {
-    onLike(); // Call the parent function to update the likes in the backend
-  };
+  const onClick = () => {
+    setInitialLikes(initialLikes + 1)
+    console.log(name)
+    handleLikeDislike(name, true)
+  }
 
   return (
     <VStack spacing={1} align="center">
@@ -173,7 +175,7 @@ function LikeButton({ initialLikes, onLike }) {
         size="lg"
         colorScheme="white"
         variant="solid"
-        onClick={handleLike} // Call handleLike on click
+        onClick={onClick} // Call handleLike on click
       />
       <Text color="white" fontSize="sm">
         {initialLikes}
