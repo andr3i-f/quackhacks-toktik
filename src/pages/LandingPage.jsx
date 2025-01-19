@@ -71,26 +71,6 @@ export function LandingPage() {
         </Flex>
       </Box>
 
-      {/* Founders */}
-      <Box py="16" bg="gray.50">
-        <Container maxW="container.lg">
-          <Heading textAlign="center" mb="8">
-            Your Captors
-          </Heading>
-          <Grid templateColumns={{ base: "repeat(2, 1fr)", md: "repeat(4, 1fr)" }} gap="6">
-            {Array.from({ length: 4 }).map((_, index) => (
-              <GridItem key={index} textAlign="center">
-                <Avatar size="xl" mb="4" />
-                <Text fontWeight="bold">Creator {index + 1}</Text>
-                <Text fontSize="sm" color="gray.600">
-                  @username{index + 1}
-                </Text>
-              </GridItem>
-            ))}
-          </Grid>
-        </Container>
-      </Box>
-
       {/* Trending Content stuff */}
       <Box py="16" bg="white">
         <Container maxW="container.lg">
@@ -105,7 +85,11 @@ export function LandingPage() {
                 p="6"
                 borderRadius="md"
                 shadow="sm"
-                _hover={{ shadow: "md", transform: "scale(1.02)", transition: "all 0.2s" }}
+                _hover={{
+                  shadow: "md",
+                  transform: "scale(1.02)",
+                  transition: "all 0.2s",
+                }}
               >
                 <Box h="150px" bg="gray.300" mb="4" borderRadius="md" />
                 <Text fontWeight="bold" mb="2">
@@ -120,12 +104,41 @@ export function LandingPage() {
         </Container>
       </Box>
 
+      {/* Founders */}
+      <Box py="16" bg="gray.50">
+        <Container maxW="container.lg">
+          <Heading textAlign="center" mb="8">
+            Your Captors
+          </Heading>
+          <Grid
+            templateColumns={{ base: "repeat(2, 1fr)", md: "repeat(4, 1fr)" }}
+            gap="6"
+          >
+            {Array.from({ length: 4 }).map((_, index) => (
+              <GridItem key={index} textAlign="center">
+                <Avatar size="xl" mb="4" />
+                <Text fontWeight="bold">Creator {index + 1}</Text>
+                <Text fontSize="sm" color="gray.600">
+                  @username{index + 1}
+                </Text>
+              </GridItem>
+            ))}
+          </Grid>
+        </Container>
+      </Box>
+
       <Box py="16" bg="teal.400" color="white">
         <Container maxW="container.md" textAlign="center">
           <Heading mb="8">What Our Prisoners Say</Heading>
           <VStack spacing="6">
             {Array.from({ length: 1 }).map((_, index) => (
-              <Box key={index} bg="teal.500" p="6" borderRadius="md" shadow="md">
+              <Box
+                key={index}
+                bg="teal.500"
+                p="6"
+                borderRadius="md"
+                shadow="md"
+              >
                 <Text fontStyle="italic" mb="4">
                   "Please end my suffereing... yippee!"
                 </Text>
@@ -153,8 +166,8 @@ export function LandingPage() {
             textAlign="center"
             lineHeight="tall"
           >
-            TokTik is not responsible for any brain damage, sleep apnea, lack
-            of sleep, thirst, hunger, or even death due to use of the website.
+            TokTik is not responsible for any brain damage, sleep apnea, lack of
+            sleep, thirst, hunger, or even death due to use of the website.
             &copy; {new Date().getFullYear()} TokTik
           </Text>
         </Container>
