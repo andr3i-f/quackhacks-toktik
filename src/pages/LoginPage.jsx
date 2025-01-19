@@ -1,7 +1,7 @@
 import {Text} from '@chakra-ui/react';
 import { Box, Button, FormControl, FormLabel, Input, Heading} from "@chakra-ui/react";
 
-function LoginPage() {
+export function LoginPage() {
   return (
     <Box
       display="flex"
