@@ -19,6 +19,7 @@ import mujtaba from "../images/mujtaba.png";
 import andrei from "../images/andrei.jpg";
 import musa from "../images/musa.png";
 import NavBar from "../components/NavBar";
+import VideoPlayer from "../components/VideoPlayer";
 
 export function LandingPage() {
   const captors = [
