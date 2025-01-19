@@ -1,7 +1,24 @@
-import { Image, Button, IconButton, Flex, Link, Text } from "@chakra-ui/react";
+import {
+  Image,
+  Button,
+  IconButton,
+  Flex,
+  Link,
+  Text,
+  Box,
+  Avatar,
+} from "@chakra-ui/react";
 import { AiFillTikTok } from "react-icons/ai";
+import { useContext, useEffect } from "react";
+import { AuthContext } from "../AuthContext";
 
 function NavBar() {
+  const user  = sessionStorage.getItem("authUser")
+
+  useEffect(() => {
+
+  }, [user])
+
   return (
     <Flex
       as="header"
@@ -28,19 +45,33 @@ function NavBar() {
             variant="ghost"
           />
         </Link>
-        <Text textStyle="7x1" fontWeight="bold">TokTik</Text>
+        <Text textStyle="7x1" fontWeight="bold">
+          TokTik
+        </Text>
       </Flex>
 
-      <Flex gap={2}>
-        <Link href="/upload" passhref legacyBehavior>
+      <Flex gap={2} align="center">
+        <Link href="/upload" passHref legacyBehavior>
           <Button as="a">Upload Gif</Button>
-        </Link>{" "}
-        <Link href="/account" passhref legacyBehavior>
-          <Button as="a">Sign Up</Button>
         </Link>
-        <Link href="/login" passhref legacyBehavior>
-          <Button as="a">Log In</Button>
-        </Link>
+
+        {!user ? (
+          <Box>
+            <Link href="/account" passHref legacyBehavior>
+              <Button as="a" mr={2}>
+                Sign Up
+              </Button>
+            </Link>
+            <Link href="/login" passHref legacyBehavior>
+              <Button as="a">Log In</Button>
+            </Link>
+          </Box>
+        ) : (
+          <Flex align="center" gap={2}>
+            <Text>Welcome {user.replaceAll('"', "")}!</Text>
+            <Avatar />
+          </Flex>
+        )}
       </Flex>
     </Flex>
   );
