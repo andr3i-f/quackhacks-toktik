@@ -7,6 +7,8 @@ import { LandingPage } from "./pages/LandingPage";
 import { NoPage } from "./pages/NoPage";
 import { CreateGifPage } from "./pages/CreateGifPage";
 import { CreateAccountPage } from "./pages/CreateAccountPage";
+// import VideoPlayer from "./components/VideoPlayer";
+import { VideoPlayerPage } from "./pages/VideoPlayerPage";
 
 function App() {
   return (
@@ -18,6 +20,7 @@ function App() {
           <Route path='/login' element={<LoginPage />} />
           <Route path='/account' element={<CreateAccountPage />} />
           <Route path='/upload' element={<CreateGifPage />} />
+          <Route path='/player' element={<VideoPlayerPage />} />
           <Route path='*' element={<NoPage />} />
         </Routes>
       </BrowserRouter>
