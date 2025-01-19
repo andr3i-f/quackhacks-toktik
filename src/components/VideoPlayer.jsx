@@ -11,10 +11,13 @@ import {
 } from "@chakra-ui/react";
 import { ArrowDownIcon, ArrowUpIcon } from "@chakra-ui/icons";
 import { RiThumbUpFill, RiThumbDownFill } from "react-icons/ri";
-import { MdOutlineComment } from "react-icons/md";
 import { useEffect, useState } from "react";
 import { getGifIndex } from "../api/gifGetIndex";
+import { handleLikeDislike } from "../api/handleLikeDislike";
+import { getHandleLikeDislike } from "../api/handleLikeDislike";
+import axios from "axios";
 
+// Function to fetch GIF data
 async function getGifsFunc(index, setData) {
   try {
     const data = await getGifIndex(index);
@@ -24,10 +27,14 @@ async function getGifsFunc(index, setData) {
   }
 }
 
+
+
 export function VideoPlayer() {
   const [index, setIndex] = useState(0);
   const [fileData, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [likes, setLikes] = useState(0);
+  const [dislikes, setDislikes] = useState(0);
 
   useEffect(() => {
     // Simulate loading effect when index changes
@@ -37,6 +44,30 @@ export function VideoPlayer() {
       setTimeout(() => setIsLoading(false), 500); // Add a delay for smooth animation
     });
   }, [index]);
+
+  useEffect(() => {
+    if (fileData) {
+      const fetchLikesDislikes = async () => {
+        const { likes, dislikes } = await getHandleLikeDislike(fileData.name);
+        setLikes(likes);
+        likedislikeHandler(fileData.name, false)
+        console.log(likes, dislikes)
+        setDislikes(dislikes);
+      };
+      fetchLikesDislikes();
+    }
+  }, [fileData]); // Triggered whenever fileData changes
+
+
+  const likedislikeHandler = async (name, isLike) => {
+    // Use the name from fileData to call handleLikeDislike
+    if (fileData) {
+      // After handling like/dislike, fetch updated likes/dislikes
+      const { likes, dislikes } = await getHandleLikeDislike(name, isLike);
+      setLikes(likes);
+      setDislikes(dislikes);
+    }
+  };
 
   return (
     <Box
@@ -93,8 +124,14 @@ export function VideoPlayer() {
           <VStack spacing={5} align="center">
             <ScrollUp setIndex={setIndex} index={index} />
             <ScrollDown setIndex={setIndex} index={index} />
-            <LikeButton />
-            <DislikeButton />
+            <LikeButton
+              initialLikes={likes}
+              onLike={() => likedislikeHandler(true)}
+            />
+            <DislikeButton
+              initialDislikes={dislikes}
+              onDislike={() => likedislikeHandler(false)}
+            />
           </VStack>
         </Flex>
       </Center>
@@ -137,11 +174,11 @@ function ScrollDown({ setIndex, index }) {
 }
 
 // Like Button
-function LikeButton() {
-  const [likes, setLikes] = useState(0);
+function LikeButton({ initialLikes, onLike }) {
+  const [likes, setLikes] = useState(initialLikes || 0);
 
   const handleLike = () => {
-    setLikes(likes + 1);
+    onLike(); // Call the parent function to update the likes in the backend
   };
 
   return (
@@ -152,21 +189,22 @@ function LikeButton() {
         size="lg"
         colorScheme="white"
         variant="solid"
-        onClick={handleLike}
+        onClick={handleLike} // Call handleLike on click
       />
       <Text color="white" fontSize="sm">
-        {likes}
+        {initialLikes}
       </Text>
     </VStack>
   );
 }
 
 // Dislike Button
-function DislikeButton() {
-  const [dislikes, setDislikes] = useState(0);
+function DislikeButton({ initialDislikes, onDislike }) {
+  const [dislikes, setDislikes] = useState(initialDislikes || 0);
 
   const handleDislike = () => {
     setDislikes(dislikes + 1);
+    onDislike(); // Call the parent function to update the dislikes in the backend
   };
 
   return (
@@ -177,7 +215,7 @@ function DislikeButton() {
         size="lg"
         colorScheme="white"
         variant="solid"
-        onClick={handleDislike}
+        onClick={handleDislike} // Call handleDislike on click
       />
       <Text color="white" fontSize="sm">
         {dislikes}
