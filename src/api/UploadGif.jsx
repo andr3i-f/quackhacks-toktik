@@ -14,7 +14,7 @@ export function UploadGif({gif, name, setUploadGif, uploadGif}) {
   
   
  return (
-     <Text>Hello World</Text>
+     <Text>Uploading...</Text>
    );
 }
 

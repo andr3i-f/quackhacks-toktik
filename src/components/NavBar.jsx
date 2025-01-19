@@ -7,7 +7,7 @@ function NavBar() {
       as="header"
       w="100%"
       px={4}
-      py={2}
+      py={6}
       alignItems="center"
       justifyContent="space-between"
       bg="gray.100"
@@ -28,7 +28,7 @@ function NavBar() {
       </Link>
 
       <Flex gap={2}>
-        <Link href="/login" passhref legacyBehavior>
+        <Link href="/upload" passhref legacyBehavior>
           <Button as="a">Upload Gif</Button>
         </Link>{" "}
         <Link href="/account" passhref legacyBehavior>
